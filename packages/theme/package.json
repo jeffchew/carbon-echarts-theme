@@ -59,7 +59,7 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "echarts": ">=5.0.0"
+    "echarts": ">=6.0.0"
   },
   "devDependencies": {
     "@carbon/colors": "^11.30.0",

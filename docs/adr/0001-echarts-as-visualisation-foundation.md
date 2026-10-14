@@ -1,7 +1,7 @@
 # ADR 0001 — Apache ECharts as the IBM / Carbon visualisation foundation
 
-**Status:** Accepted  
-**Date:** 2025
+**Status:** Accepted
+**Date:** 2025 — amended October 2026 (ECharts 6 minimum)
 
 ---
 
@@ -31,4 +31,11 @@ Framework agnosticism is the decisive factor: a design-system-level standard mus
 - ECharts is a **peer dependency** — never bundled into `@carbon/echarts-theme`.
 - Framework adapters (`echarts-for-react`, `ngx-echarts`, `vue-echarts`) are the responsibility of consuming applications.
 - The theme output is a plain JS object, usable with any ECharts adapter or directly via `echarts.init()`.
-- The package tracks ECharts 5.x as the minimum supported version.
+- The package tracks **ECharts 6.x as the minimum supported version** (`peerDependencies: ">=6.0.0"`).
+  - ECharts 6.0 (July 2025) is now the npm `latest` release. All major framework adapters
+    (`echarts-for-react ≥3.0.6`, `vue-echarts ≥8.3.2`, `ngx-echarts ≥22.0.0`) support it.
+  - Starting from v6 aligns the ZRender version with the `@carbon/echarts-motion` exploration
+    (Mike Olasov's `temp/Carbon-Next-Motion-Mike/`), avoiding a retroactive ZRender 5→6 port
+    when that package is built.
+  - ECharts 5.x installations will receive a peer dependency warning from npm/pnpm; the floor
+    is not enforced at runtime, but v6-only option keys used in presets will not work on 5.x.
