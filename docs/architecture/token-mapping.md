@@ -54,10 +54,17 @@ const colors = ['#6929c4', '#1192e8']
 
 ## Animation defaults
 
-| Key                 | Value        | Source                        |
-| ------------------- | ------------ | ----------------------------- |
-| `animationDuration` | `300`        | Matches Carbon Charts default |
-| `animationEasing`   | `'cubicOut'` | Matches Carbon Charts default |
+> **Pending update (roadmap M1):** these values will change to Carbon motion token values sourced from `@carbon/motion`. See [ADR 0009](../adr/0009-motion-package-boundary.md) §Tier 1 and [ADR 0010](../adr/0010-motion-token-source-of-truth.md) §Tier A.
+
+| Key                       | Current value | Planned value (M1)          | Carbon token                 |
+| ------------------------- | ------------- | --------------------------- | ---------------------------- |
+| `animationDuration`       | `300`         | `240`                       | `duration-moderate-02`       |
+| `animationEasing`         | `'cubicOut'`  | easing fn from token bridge | `easing-entrance-productive` |
+| `animationDurationUpdate` | `300`         | `110`                       | `duration-fast-02`           |
+
+The planned values are sourced from `@carbon/motion` 11.x at build time — not hardcoded. `animationEasing` will change from a named string to an easing function returned by the `createCubicEasingFunc` bridge (see `@carbon/echarts-motion`), which makes the ECharts curve mathematically identical to the CSS transition using the same Carbon token.
+
+A `carbonAnimationOption({ reduced: boolean })` opt-in export will also be added for consumers who need explicit reduced-motion control.
 
 ---
 

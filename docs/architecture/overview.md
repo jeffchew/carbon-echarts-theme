@@ -1,6 +1,6 @@
 # Architecture Overview
 
-`@carbon/echarts-theme` is a pnpm workspaces monorepo containing four packages and a shared tooling layer.
+`@carbon/echarts-theme` is a pnpm workspaces monorepo containing five packages and a shared tooling layer.
 
 ---
 
@@ -11,6 +11,7 @@ packages/
 ├── theme/          @carbon/echarts-theme        — core theme, published to npm
 ├── site/           (internal)                   — showcase site + dev harness
 ├── toolbar/        @carbon/echarts-toolbar       — chart toolbar + export, published to npm
+├── motion/         @carbon/echarts-motion        — ECharts motion engine, published to npm (pending M2)
 └── codemods/       @carbon/echarts-codemod       — migration transforms, published to npm (pending)
 ```
 
@@ -101,16 +102,20 @@ See ADR 0007 for the co-location rationale.
 ## Dependency graph
 
 ```
-@carbon/themes (dev only)
-       ↓ build-time
+@carbon/themes (dev only)          @carbon/motion (dev only)
+       ↓ build-time                        ↓ build-time (Tier A tokens)
 packages/theme  ──────────────────────────────→  npm (@carbon/echarts-theme)
        ↓ workspace:*
 packages/toolbar ─────────────────────────────→  npm (@carbon/echarts-toolbar)
+packages/motion  ─────────────────────────────→  npm (@carbon/echarts-motion) [pending M2]
 packages/site    (internal, not published)
 packages/codemods ────────────────────────────→  npm (@carbon/echarts-codemod) [pending]
 ```
 
-`echarts` is a **peer dependency** of both `theme` and `toolbar` — never bundled.
+`echarts` is a **peer dependency** of `theme`, `toolbar`, and `motion` — never bundled.
+
+`--cds-motion-*` CSS custom properties (Carbon v12 motion surface API) are read at runtime by
+`@carbon/echarts-motion` when present — not bundled. See [ADR 0010](../adr/0010-motion-token-source-of-truth.md).
 
 ---
 
@@ -123,3 +128,5 @@ These rules govern where logic lives. Never deviate.
 3. Site data files (`packages/site/src/data/echarts/*.ts`) only call preset functions with data — no logic.
 4. Site page files only import from data files and wire props — no option construction.
 5. Every fix must be a general preset option, not a one-off bespoke override.
+6. `packages/theme` is a plain JS object — zero runtime dependencies, no framework code, SSR-safe. Lifecycle-bound functionality (anything requiring a mounted chart) belongs in `packages/motion` or `packages/toolbar`. See [ADR 0002](../adr/0002-no-framework-adapters.md) and [ADR 0009](../adr/0009-motion-package-boundary.md).
+7. Motion token values are never hardcoded in `packages/theme` or `packages/motion`. Existing `@carbon/motion` tokens are sourced at build time; new `--cds-motion-*` tokens are read from CSS custom properties at runtime. See [ADR 0010](../adr/0010-motion-token-source-of-truth.md).
