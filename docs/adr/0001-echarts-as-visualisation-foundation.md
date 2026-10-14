@@ -1,7 +1,7 @@
 # ADR 0001 — Apache ECharts as the IBM / Carbon visualisation foundation
 
 **Status:** Accepted
-**Date:** 2025 — amended October 2026 (ECharts 6 minimum)
+**Date:** July 2026 — amended October 2026 (ECharts 6 minimum)
 
 ---
 

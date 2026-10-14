@@ -1,7 +1,7 @@
 # ADR 0008 — Toolbar as a separate published package
 
 **Status:** Accepted  
-**Date:** 2025
+**Date:** July 2026
 
 ---
 

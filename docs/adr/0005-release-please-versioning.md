@@ -1,7 +1,7 @@
 # ADR 0005 — Release Please for versioning and changelog generation
 
 **Status:** Accepted  
-**Date:** 2025
+**Date:** July 2026
 
 ---
 

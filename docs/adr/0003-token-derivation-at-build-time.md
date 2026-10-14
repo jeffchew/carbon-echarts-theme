@@ -1,7 +1,7 @@
 # ADR 0003 — Design tokens derived from `@carbon/themes` at build time
 
 **Status:** Accepted  
-**Date:** 2025
+**Date:** July 2026
 
 ---
 

@@ -1,7 +1,7 @@
 # ADR 0002 — No framework adapters shipped with the theme package
 
 **Status:** Accepted  
-**Date:** 2025
+**Date:** July 2026
 
 ---
 

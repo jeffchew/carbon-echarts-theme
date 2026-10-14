@@ -1,7 +1,7 @@
 # ADR 0006 — Netlify for showcase site deployment
 
 **Status:** Accepted  
-**Date:** 2025
+**Date:** July 2026
 
 ---
 

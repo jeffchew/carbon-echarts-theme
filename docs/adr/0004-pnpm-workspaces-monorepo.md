@@ -1,7 +1,7 @@
 # ADR 0004 — pnpm workspaces monorepo
 
 **Status:** Accepted  
-**Date:** 2025
+**Date:** July 2026
 
 ---
 
